@@ -32,7 +32,7 @@ export default {
     },
     social: {
       github: `https://github.com/myeonguklee`,
-      linkedIn: `https://www.linkedin.com/in/myeong-uk/`,
+      linkedIn: ``, //https://www.linkedin.com/in/myeong-uk/
       resume: `https://my.surfit.io/w/1344468926`,
     },
     dropdown: {
@@ -46,12 +46,16 @@ export default {
    */
   featured: [
     {
-      title: 'dev',
+      title: 'Dev',
       category: 'featured-dev',
     },
     {
-      title: 'basic',
-      category: 'featured-basic',
+      title: 'TypeScript',
+      category: 'featured-typescript',
+    },
+    {
+      title: 'JavaScript',
+      category: 'featured-javascript',
     },
   ],
 
