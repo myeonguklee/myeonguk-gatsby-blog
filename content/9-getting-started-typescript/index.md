@@ -1,5 +1,5 @@
 ---
-emoji: 👨🏻‍💻
+emoji: ⌨
 title: '쉽게 시작하는 타입스크립트'
 date: '2025-01-01'
 categories: featured-typescript
