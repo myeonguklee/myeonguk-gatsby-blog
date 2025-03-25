@@ -377,5 +377,144 @@ function sayHi(message: string | null) {
 }
 ```
 
+## Chapter 15. 타입호환
+### 타입 호환(type compatibility)이란
+서로 다른 타입이 2개 있을 때 특정 타입이 다른 타입에 포함되는지를 의미
+```javascript
+let a: string = 'hi';
+let b: 'hi' = 10;
+
+a = b;
+// javascript에서는 보통 타입 캐스팅(type casting)
+```
+
+### 다른 언어와 차이점
+**구조적 타이핑(structural typing)**: 타입 유형 보다는 타입 구조로 호환 여부를 판별
+```javascript
+type Captain = {
+  name: string;
+}
+
+interface Antman {
+  name: string;
+}
+
+let a: Captain = {
+  name: '캡틴',
+}
+
+let b: Antman {
+  name: '앤트맨',
+}
+
+b = a;  // 에러 발생 X
+// name을 nickname으로 변경하면 에러 발생
+```
+
+### 타입의 호환
+- 객체 타입: 속성 타입의 포함 관계에 따라 호환
+- 함수 타입: 부분 집합에 해당하는 함수 호환(기존 함수 코드의 동작을 보장해 줄 수 있는가? ex. 필요한 매개변수가 작은 경우)
+- 이넘 타입: 이넘끼리 호환되지 않고 수자형 이넘은 숫자 타입과 호환
+- 제네릭 타입: 받은 타입(<T>)의 사용 여부에 따라 타입 호환이 구분
+
+## Chapter 17. 유틸리티 타입
+
+### 유틸리티 타입이란?
+**유틸리티 타입(utility type)**은 이미 정의 되어 있는 타입 구조를 변경하여 재사용하고 싶을때 사용하는 타입
+
+```javascript
+// 타입스크립트 설정 파일에 추가
+{
+  "compilerOptions": {
+    "lib": ["ESNext"]
+  }
+}
+```
+
+- 자주 사용하는 유틸리티 타입 활용 예시
+
+```javascript
+interface UserProfile {
+  id: stirng;
+  name: string;
+  address: string;
+}
+// Pick: 객체의 프로퍼티 선택
+type User1 = Pick<UserProfile, 'id' | 'name'>;
+// Omit: 객체의 프로퍼티 제외
+type User2 = Omit<UserProfile, 'address'>;
+// User1, User2 같은 구조
+
+// Partial : 객체의 프로퍼티 옵셔널 체이닝으로
+type PartialUser = Partial<UserProfile>;
+
+// Omit과 Exclude 비슷해보이지만 Omit은 객체 타입에서 특정 프로퍼티 제거, Exclude는 유니언 타입에서 특정 타입 제거
+type Languages = 'C' | 'Java' | 'TypeScript' | 'React';
+type TrueLanguages = Exclude<Languages, 'React'>
+
+// Record : 객체 속성의 키(key)와 값(value)으로 사용할 타입
+type PhoneBook = Record<string, string>
+
+type HeroProfile = {
+  skill: string;
+  age: number;
+}
+
+type HereNames = 'thor' | 'hulk' | 'capt';
+
+type Heroes = Record<HeroNames, HeroProfile>;
+// 아래와 같은 타입으로 선언됨
+// type Hereos = {
+//   thor: HeroProfile;
+//   hulk: HeroProfile;
+//   capt: HeroProfile;
+// }
+```
+
+## Chapter 18. 맵드 타입
+### 맵드 타입(mapped type)이란?
+이미 정의된 타입을 가지고 새로운 타입을 생성할 때 사용하는 타입 문법
+```javascript
+// in
+type HeroNames = 'capt' | 'hulk' | 'thor';
+type HeroAttendance = {
+  [Name in HeroNames]: boolean;
+};
+
+// keyof
+interface Hero {
+  name: string;
+  skill: string;
+}
+
+type HeroPropCheck = {
+  [H in keyof Hero]: boolean;
+};
+
+type HeroNames1 = keyof Hero;
+type HeroNames2 = 'name' | 'skill';
+```
+
+### 매핑 수정자
+**매핑 수정자(mapping modifier)**는 맵드 타입으로 타입을 변환할 때 속성 성질을 변환할 수 있도록 도와주는 문법
+
+```javascript
+interface Todo {
+  id: string;
+  title: string;
+}
+
+// 아래 두개 같은 구조(옵션 속성으로 변환)
+type OptionalTodo = Partial<Todo>;
+type MyPartial = {
+  [Property in keyof Todo]?: Todo[Property];
+}
+
+// 원래대로 되돌리고 싶으면(옵션 속성 일반 속성으로)
+type RequiredTodo = {
+  [Property in keyof OptionalTodo]-?: OptionalTodo[Property];
+}
+```
+
 ```toc
 ```

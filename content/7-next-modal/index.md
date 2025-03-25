@@ -1,6 +1,6 @@
 ---
 emoji: 👨🏻‍🍳
-title: 'Next.js-모달 구현, Intercepting, Parallel Routes를 곁들인'
+title: 'Next.js-모달 구현, 그런데 Intercepting, Parallel Routes를 곁들인'
 date: '2024-12-17'
 categories: featured-dev
 ---
