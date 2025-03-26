@@ -1,7 +1,7 @@
 ---
 emoji: 👨🏻‍💻
 title: '코어 자바 스크립트 - 07.Class'
-date: '2024-12-17'
+date: '2024-12-24'
 categories: featured-javascript
 ---
 
